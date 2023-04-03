@@ -4,9 +4,9 @@ module.exports = {
     description: 'Just playing around',
     themeConfig: {
         author: 'Jin Shenwei', // will display on the page footer
-        // navbar: { // will display below the title
-        //   YOUR_SITE_NAME: 'blog',
-        // }
+        navbar: { // will display below the title
+          MyPhoto: '/images/User.jpg',
+        }
       },
       base: "/"
   }
