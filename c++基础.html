@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>学习 [c++基础] | 我的博客</title>
+    <meta name="generator" content="VuePress 1.9.9">
+    
+    <meta name="description" content="Just playing around">
+    
+    <link rel="preload" href="/assets/css/1.styles.39ebe384.css" as="style"><link rel="preload" href="/assets/js/app.6d6c85f9.js" as="script"><link rel="preload" href="/assets/js/3.e69e676f.js" as="script"><link rel="preload" href="/assets/js/7.1c84c6cc.js" as="script"><link rel="prefetch" href="/assets/js/10.99aab41b.js"><link rel="prefetch" href="/assets/js/11.8f9eebd9.js"><link rel="prefetch" href="/assets/js/2.bad08e00.js"><link rel="prefetch" href="/assets/js/4.7c0b9e53.js"><link rel="prefetch" href="/assets/js/5.e46d8643.js"><link rel="prefetch" href="/assets/js/6.e2e4f725.js"><link rel="prefetch" href="/assets/js/8.591348ab.js"><link rel="prefetch" href="/assets/js/9.a5eede58.js">
+    <link rel="stylesheet" href="/assets/css/1.styles.39ebe384.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container vuepress-theme-simple"><header class="header"><a href="/" title="Just playing around" class="site-name router-link-active">
+      我的博客
+    </a> <div style="clear: both"></div> <div class="navbar"><a href="/images/User.jpg" target="_blank" rel="noopener noreferrer" class="navbar-item">MyPhoto</a></div></header> <section class="post-view"><div class="post-head"><h1 class="post-title">
+      学习 [c++基础]
+    </h1> <time datetime="2023/4/10 15:27:53" title="2023/4/10 15:27:53" pubdate="pubdate" class="post-date">
+  1 week ago
+</time></div> <div class="content__default"><h1 id="学习-c-基础"><a href="#学习-c-基础" class="header-anchor">#</a> 学习 [c++基础]</h1> <h2 id="一-数据类型"><a href="#一-数据类型" class="header-anchor">#</a> 一.数据类型</h2> <h3 id="整型"><a href="#整型" class="header-anchor">#</a> 整型</h3> <ul><li>short 短整型     2字节 (-32768 ~ 32767)</li> <li>int 整型            4字节</li> <li>long 长整型       4字节</li> <li>long long 长长整型         8字节</li></ul> <h3 id="sizeof关键字"><a href="#sizeof关键字" class="header-anchor">#</a> sizeof关键字</h3> <p>作用：可以统计数据类型所占的内存大小</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+    short num1 = 10;
+
+    cout &lt;&lt; &quot;short所占的内存大小为：&quot; &lt;&lt; sizeof(num1) &lt;&lt; endl;
+    system(&quot;pause&quot;);
+    return 0;
+}
+</code></pre></div><h3 id="浮点型"><a href="#浮点型" class="header-anchor">#</a> 浮点型</h3> <ul><li>float  4字节       7位有效数字</li> <li>double  8字节    16位有效数字</li></ul> <h3 id="字符型"><a href="#字符型" class="header-anchor">#</a> 字符型</h3> <ul><li><p>char</p></li> <li><div class="language-c extra-class"><pre class="language-c"><code><span class="token keyword">char</span> ch <span class="token operator">=</span> <span class="token char">'a'</span><span class="token punctuation">;</span> 
+</code></pre></div></li></ul> <h3 id="转义字符"><a href="#转义字符" class="header-anchor">#</a> 转义字符</h3> <table><thead><tr><th style="text-align:center;">转义字符</th> <th style="text-align:center;">含义</th> <th></th></tr></thead> <tbody><tr><td style="text-align:center;">\a</td> <td style="text-align:center;">警报</td> <td></td></tr> <tr><td style="text-align:center;">\b</td> <td style="text-align:center;">退格</td> <td></td></tr> <tr><td style="text-align:center;">\f</td> <td style="text-align:center;">换页</td> <td></td></tr> <tr><td style="text-align:center;">\n</td> <td style="text-align:center;">换行</td> <td></td></tr> <tr><td style="text-align:center;">\r</td> <td style="text-align:center;">回车</td> <td></td></tr> <tr><td style="text-align:center;">\t</td> <td style="text-align:center;">水平制表</td> <td></td></tr> <tr><td style="text-align:center;">\</td> <td style="text-align:center;">一个反斜线字符</td> <td></td></tr></tbody></table> <h3 id="字符串型"><a href="#字符串型" class="header-anchor">#</a> 字符串型</h3> <p>c：</p> <div class="language-c++ extra-class"><pre class="language-text"><code>char name[] = &quot;sunwukong&quot;;
+</code></pre></div><p>c++：</p> <div class="language-c++ extra-class"><pre class="language-text"><code>string str = &quot;hello world&quot;;
+</code></pre></div><p>注意：再用string定义字符串时，要引入头文件</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include &lt;string&gt;
+</code></pre></div><h3 id="数据的输入"><a href="#数据的输入" class="header-anchor">#</a> 数据的输入</h3> <ul><li><p>cin &gt;&gt;</p></li> <li><div class="language-c++ extra-class"><pre class="language-text"><code>int main()
+{   
+    //1.整形
+    int a = 0;
+    cout &lt;&lt; &quot;请给整形a赋值：&quot; &lt;&lt; endl;
+    cin &gt;&gt; a;
+    cout &lt;&lt; a &lt;&lt; endl;
+
+    //2.浮点型
+    float f = 3.14f;
+    cout &lt;&lt; &quot;请给浮点型变量f赋值:&quot; &lt;&lt; endl;
+    cin &gt;&gt; f;
+    cout &lt;&lt; f &lt;&lt; endl;
+
+    system(&quot;pause&quot;);
+    return 0;
+}
+</code></pre></div></li></ul> <h2 id="二-运算符"><a href="#二-运算符" class="header-anchor">#</a> 二. 运算符</h2> <h3 id="算数运算符"><a href="#算数运算符" class="header-anchor">#</a> 算数运算符</h3> <p>+，-，*，/, %</p> <p><em>注意：两个整数相除依然是整数，将小数部分自动去除</em></p> <p><em>注意：%取模运算时，两个小数不能做取模运算</em></p> <p>前置递增： ++a 先让变量加一，在进行表达式运算</p> <p>后置递增： a++ 先进行表达式运算，后让变量加一</p> <h3 id="赋值运算符"><a href="#赋值运算符" class="header-anchor">#</a> 赋值运算符</h3> <p>+=，-=，*=，/=，%=</p> <h3 id="比较运算符"><a href="#比较运算符" class="header-anchor">#</a> 比较运算符</h3> <h3 id="逻辑运算符"><a href="#逻辑运算符" class="header-anchor">#</a> 逻辑运算符</h3> <p>！， &amp;&amp; ，||</p> <h2 id="三-程序流程结构"><a href="#三-程序流程结构" class="header-anchor">#</a> 三.程序流程结构</h2> <h3 id="三目运算符"><a href="#三目运算符" class="header-anchor">#</a> 三目运算符</h3> <p>在c++中 三目运算返回的是一个变量，可以直接赋值</p> <h3 id="switch语句"><a href="#switch语句" class="header-anchor">#</a> switch语句</h3> <div class="language-C++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+
+int main() {
+
+	int score = 0;
+	cout &lt;&lt; &quot;请输入您的评分&quot; &lt;&lt; endl;
+	cin &gt;&gt; score;
+
+	switch (score) {
+	case 10:
+		cout &lt;&lt; &quot;您认为电影非常好&quot; &lt;&lt; endl;
+	case 9:
+		cout &lt;&lt; &quot;您认为电影非常好&quot; &lt;&lt; endl;
+	case 8:
+		cout &lt;&lt; &quot;您认为电影一般&quot; &lt;&lt; endl;
+	case 7:
+		cout &lt;&lt; &quot;您认为电影一般&quot; &lt;&lt; endl;
+	case 6:
+		cout &lt;&lt; &quot;您认为电影比较差&quot; &lt;&lt; endl;
+	case 5:
+		cout &lt;&lt; &quot;您认为电影比较差&quot; &lt;&lt; endl;
+	default:
+		cout &lt;&lt; &quot;您认为这是烂片&quot; &lt;&lt; endl;
+	}
+	system(&quot;pause&quot;);
+	return 0;
+</code></pre></div><p><em>注意：switch判断时只能是整形或者字符型，不可以是一个区间</em></p> <h3 id="while循环"><a href="#while循环" class="header-anchor">#</a> while循环</h3> <p>猜数字游戏</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+#include &lt;ctime&gt;
+
+int main() {
+	// 添加随机数种子，利用系统时间生成随机数，防止每次生成的数字都一样
+	srand((unsigned int)time(NULL));
+
+	int num1 = rand()%100 + 1;
+	int num2 = 0;
+	while (num1 != num2) {
+		cout &lt;&lt; &quot;请输入一个1 到 100 的数字&quot; &lt;&lt; endl;
+		cin &gt;&gt; num2;
+		if (num2 &gt; num1) {
+			cout &lt;&lt; &quot;您猜大了&quot; &lt;&lt; endl;
+		}
+		else if (num2 &lt; num1)
+		{
+			cout &lt;&lt; &quot;您猜小了&quot; &lt;&lt; endl;
+		}
+		else {
+			cout &lt;&lt; &quot;恭喜您，猜对了&quot; &lt;&lt; endl;
+			break;
+		}
+	}
+	system(&quot;pause&quot;);
+		return 0;
+</code></pre></div><h4 id="do-while"><a href="#do-while" class="header-anchor">#</a> do...while</h4> <p>先执行一次循环，再判断条件</p> <div class="language-c++ extra-class"><pre class="language-text"><code>int num = 0;
+	do
+	{
+		cout &lt;&lt; num &lt;&lt; endl;
+		num++;
+	} while (num &lt;= 9)
+</code></pre></div><h3 id="for循环语句"><a href="#for循环语句" class="header-anchor">#</a> for循环语句</h3> <p>满足循环条件，执行循环语句</p> <h3 id="嵌套循环"><a href="#嵌套循环" class="header-anchor">#</a> 嵌套循环</h3> <p>打印九九乘法表</p> <div class="language-C++ extra-class"><pre class="language-text"><code>	for (int i = 1; i &lt; 10; i++) {
+		for (int j = 1; j &lt;= i; j++) {
+			cout &lt;&lt; j &lt;&lt; &quot;*&quot; &lt;&lt; i &lt;&lt; &quot;=&quot; &lt;&lt; j * i &lt;&lt; &quot; &quot;;
+		}
+		cout &lt;&lt; endl;
+	}
+</code></pre></div><p>![553d42e8e431ab26a24818eb66067b4](C:\Users\JINSHE~1\AppData\Local\Temp\WeChat Files\553d42e8e431ab26a24818eb66067b4.png)</p> <h3 id="countinue语句"><a href="#countinue语句" class="header-anchor">#</a> countinue语句</h3> <div class="language-c++ extra-class"><pre class="language-text"><code>int main() {
+
+	for (int i = 0; i &lt;= 100; i++) {
+		if (i % 2 == 0) {
+			continue;// 可以筛选条件，执行到此就不在向下执行，执行下一次循环
+		}
+		cout &lt;&lt; i &lt;&lt; endl;
+	}
+</code></pre></div><h3 id="goto语句"><a href="#goto语句" class="header-anchor">#</a> goto语句</h3> <p>无条件地跳转代码</p> <p>如果标记名称存在，执行到goto语句时，会跳转到标记的位置</p> <h2 id="数组"><a href="#数组" class="header-anchor">#</a> 数组</h2> <h3 id="概述"><a href="#概述" class="header-anchor">#</a> 概述</h3> <ul><li>特点：数组中的每个数据元素都是相同的数据类型</li> <li>特点：数组是由连续的内存位置组成的</li></ul> <h3 id="定义方法"><a href="#定义方法" class="header-anchor">#</a> 定义方法</h3> <ol><li><p>数据类型 数组名[ 数组长度 ]；</p></li> <li><p>数据类型 数组名[ 数组长度 ] = {值1， 值2 ......}</p></li> <li><p>数据类型 数组名[ ] = { 值1， 值2， .....}</p> <p><em>注意，如果在初始化数据时没有全部填写完，会用零来填补剩余的数据</em></p></li></ol> <h3 id="数组名作用"><a href="#数组名作用" class="header-anchor">#</a> 数组名作用</h3> <ul><li>可以统计整个数组在内存中的长的</li> <li>可以获取数组在内存中的首地址</li></ul> <p>![c731f419a5fdb4adbcc322ca593b038](C:\Users\JINSHE~1\AppData\Local\Temp\WeChat Files\c731f419a5fdb4adbcc322ca593b038.png)</p> <h3 id="冒泡排序"><a href="#冒泡排序" class="header-anchor">#</a> 冒泡排序</h3> <p><em><strong>以下是排列一个整型数组的 冒泡排序代码：</strong></em></p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+	int arr[9] = { 4,2,8,0,5,7,1,3,9 };
+	int end = sizeof(arr) / sizeof(arr[0]) - 1;
+	for (int i = 0; i &lt;= end; i++) {
+		cout &lt;&lt; arr[i] &lt;&lt; &quot; &quot;;
+	}
+	cout &lt;&lt; endl;
+
+
+	for (int i = 0; i &lt; end; i++) {
+		for (int j = 0; j &lt; end - i; j++) {
+			if (arr[j] &gt; arr[j + 1]) {
+				int temp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp;
+			}
+		}
+	}
+
+
+	for (int k = 0; k &lt;= end; k++) {
+		cout &lt;&lt; arr[k] &lt;&lt; &quot; &quot;;
+	}
+	cout &lt;&lt; endl;
+	system(&quot;pause&quot;);
+	return 0;
+}
+</code></pre></div><h3 id="二维数组"><a href="#二维数组" class="header-anchor">#</a> 二维数组</h3> <h4 id="定义方法-2"><a href="#定义方法-2" class="header-anchor">#</a> 定义方法</h4> <ol><li>数据类型 数组名 [ 行数 ] [ 列数 ] ；</li> <li>数据类型 数组名 [ 行数 ] [ 列数 ] = { {数据1， 数据2}， {数据3， 数据4} }</li> <li>数据类型 数组名 [ 行数 ] [ 列数 ] = {数据1， 数据2， 数据3， 数据4}</li> <li>数据类型 数组名 [ ] [ 列数 ] = {数据1， 数据2， 数据3， 数据4}</li></ol> <h4 id="数组名称"><a href="#数组名称" class="header-anchor">#</a> 数组名称</h4> <ul><li>可以统计整个数组在内存中的长的</li> <li>可以获取数组在内存中的首地址</li></ul> <h2 id="函数"><a href="#函数" class="header-anchor">#</a> 函数</h2> <h3 id="函数的定义"><a href="#函数的定义" class="header-anchor">#</a> 函数的定义</h3> <ol><li>返回值类型</li> <li>函数名</li> <li>参数列表</li> <li>函数体语句</li> <li>return表达式</li></ol> <h3 id="函数的调用"><a href="#函数的调用" class="header-anchor">#</a> 函数的调用</h3> <p>普通的调用方法</p> <h3 id="值传递"><a href="#值传递" class="header-anchor">#</a> 值传递</h3> <p>当形参在函数中发生变化时，实参并不会改变。</p> <p>![da9327f8a49b67692f14140e736c798](C:\Users\JINSHE~1\AppData\Local\Temp\WeChat Files\da9327f8a49b67692f14140e736c798.png)</p> <h3 id="函数的封装"><a href="#函数的封装" class="header-anchor">#</a> 函数的封装</h3> <ol><li>创建.h后缀名的头文件</li> <li>创建.cpp的源文件</li> <li>在头文件中写函数的声明</li> <li>在源文件中写函数的定义</li></ol> <p><em><strong>在头文件中创建 swap.h 文件</strong></em></p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+
+
+void swap(int num1, int num2);
+</code></pre></div><p><em><strong>在源文件中创建 swap.cpp 文件</strong></em></p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include &quot;swap.h&quot;
+void swap(int num1, int num2) {
+	cout &lt;&lt; &quot;before:&quot; &lt;&lt; endl;
+	cout &lt;&lt; num1 &lt;&lt; &quot;--&quot; &lt;&lt; num2 &lt;&lt; endl;
+
+	int temp = 0;
+	temp = num1;
+	num1 = num2;
+	num2 = temp;
+
+	cout &lt;&lt; &quot;after:&quot; &lt;&lt; endl;
+	cout &lt;&lt; num1 &lt;&lt; &quot;--&quot; &lt;&lt; num2 &lt;&lt; endl;
+	return;
+}
+</code></pre></div><p><em><strong>使用函数</strong></em></p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include &quot;swap.h&quot;
+int main() {
+
+	int a = 10;
+	int b = 20;
+	swap(a, b);
+
+
+	system(&quot;pause&quot;);
+	return 0;
+}
+</code></pre></div><h2 id="指针"><a href="#指针" class="header-anchor">#</a> 指针</h2> <h3 id="作用"><a href="#作用" class="header-anchor">#</a> 作用</h3> <p>可以通过指针间接访问一段内存</p> <ul><li>内存编号从零开始记录，一般用十六进制数字表示</li> <li>可以利用指针变量保存地址</li></ul> <h3 id="定义方法-3"><a href="#定义方法-3" class="header-anchor">#</a> 定义方法</h3> <div class="language-c++ extra-class"><pre class="language-text"><code>int a = 10;
+	int * p; //定义指针
+
+	p = &amp;a; // 建立指针和变量的关系
+
+	*p = 1000; // 通过解引用来访问a变量
+	cout &lt;&lt; a &lt;&lt; endl;
+</code></pre></div><h3 id="指针所占的内存空间"><a href="#指针所占的内存空间" class="header-anchor">#</a> 指针所占的内存空间</h3> <p>在32位操作系统占4字节 64位8字节（不管是什么类型）</p> <h3 id="空指针和野指针"><a href="#空指针和野指针" class="header-anchor">#</a> 空指针和野指针</h3> <ul><li><p>空指针：指针变量指向内存中编号为0的空间</p></li> <li><p>用途：初始化指针变量</p></li> <li><p>注意：空指针指向的内存是不可以访问的</p> <div class="language- extra-class"><pre class="language-text"><code>int * p = NULL;
+</code></pre></div></li> <li><p>野指针：指针变量指向非法的内存空间</p></li> <li><div class="language-c++ extra-class"><pre class="language-text"><code>	int* p = (int *)0x1100;
+
+	cout &lt;&lt; *p &lt;&lt; endl;
+</code></pre></div><p><em>注意：这样访问会报错，因为此内存空间是非法的</em></p></li></ul> <h3 id="const修饰指针"><a href="#const修饰指针" class="header-anchor">#</a> const修饰指针</h3> <ol><li>const修饰指针： --常量指针</li></ol> <p>指针的指向可以改，指针指向的值不能改</p> <div class="language-c++ extra-class"><pre class="language-text"><code>int a = 10;
+	int b = 10;
+	int* p = &amp;a;
+
+	const int* p = &amp;a;
+</code></pre></div><ol><li>const修饰常量： --指针常量</li></ol> <p>指针的指向不可以改，但是指针指向的值可以改</p> <div class="language-c++ extra-class"><pre class="language-text"><code>int a = 10;
+	int b = 10;
+	int* p = &amp;a;
+
+	int* const p = &amp;a;
+</code></pre></div><ol><li>const既修饰指针，又修饰常量</li></ol> <p>指针的指向和指向的值都不可以改</p> <div class="language-c++ extra-class"><pre class="language-text"><code>	int a = 10;
+	int b = 10;
+	int* p = &amp;a;
+
+	const int* const p = &amp;a;
+</code></pre></div><h3 id="指针和数组"><a href="#指针和数组" class="header-anchor">#</a> 指针和数组</h3> <p>利用指针遍历数组</p> <div class="language-c++ extra-class"><pre class="language-text"><code>	int arr[10] = { 1,2,3,4,5,6,7,8,9,10 };
+
+	int* p = arr; //p指向4个字节的单位
+
+	for (int i = 0; i &lt; 10; i++) {
+		cout &lt;&lt; *p &lt;&lt; endl;
+		p++;
+	}
+</code></pre></div><h3 id="指针和函数"><a href="#指针和函数" class="header-anchor">#</a> 指针和函数</h3> <p>当通过函数的形式进行值传递时，只会改变形参的值，并不会改变实参的值。</p> <p>而通过指针进行地址传递则可以改变</p> <div class="language-c++ extra-class"><pre class="language-text"><code>void swap02(int* p1, int* p2) {
+	int temp = *p1;
+	*p1 = *p2;
+	*p2 = temp;
+}
+	
+int main() {
+	int a = 10;
+	int b = 20;
+	
+	swap02(&amp;a, &amp;b);
+	cout &lt;&lt; &quot; a : &quot; &lt;&lt; a &lt;&lt; endl;
+	cout &lt;&lt; &quot; b : &quot; &lt;&lt; b &lt;&lt; endl;
+	
+
+	system(&quot;pause&quot;);
+	return 0;
+}
+</code></pre></div><h2 id="结构体"><a href="#结构体" class="header-anchor">#</a> 结构体</h2> <h3 id="结构体的基本概念"><a href="#结构体的基本概念" class="header-anchor">#</a> 结构体的基本概念</h3> <p>结构体属于用户自定义的数据类型，允许用户存储不同的数据类型</p> <h3 id="语法"><a href="#语法" class="header-anchor">#</a> 语法</h3> <p>struct 结构体名 { 结构体成员列表 }；</p> <p>通过结构体创建变量的方式有三种：</p> <ul><li>struct 结构体名 变量名</li> <li>struct 结构体名 变量名 = {  }</li> <li>在创建结构体时附上变量名</li></ul> <div class="language-c++ extra-class"><pre class="language-text"><code>struct Student {
+
+	string name;
+
+	int age;
+
+	int score;
+}s3;
+
+int main() {
+//第一种方法
+	struct Student s1; // 在这里，struct关键字可以省略
+	s1.name = &quot;张三&quot;;
+	s1.age = 18;
+	s1.score = 100;
+	cout &lt;&lt; &quot; 姓名： &quot; &lt;&lt; s1.name &lt;&lt; &quot; 年龄： &quot; &lt;&lt; s1.age &lt;&lt; &quot; 分数： &quot; &lt;&lt; s1.score &lt;&lt; endl;
+//第二种方法
+	struct Student s2 = {
+		&quot;李四&quot;,
+		19,
+		80
+	};
+	cout &lt;&lt; &quot; 姓名： &quot; &lt;&lt; s2.name &lt;&lt; &quot; 年龄： &quot; &lt;&lt; s2.age &lt;&lt; &quot; 分数： &quot; &lt;&lt; s2.score &lt;&lt; endl;
+//第三种方法
+	s3.name = &quot;王五&quot;;
+	s3.age = 19;
+	s3.score = 60;
+	cout &lt;&lt; &quot; 姓名： &quot; &lt;&lt; s3.name &lt;&lt; &quot; 年龄： &quot; &lt;&lt; s3.age &lt;&lt; &quot; 分数： &quot; &lt;&lt; s3.score &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+}
+</code></pre></div><p><em>注意：在创建变量时，结构体名称可以省略</em></p> <h3 id="结构体数组"><a href="#结构体数组" class="header-anchor">#</a> 结构体数组</h3> <div class="language-c++ extra-class"><pre class="language-text"><code>struct Student stuArr[3] = {
+		{&quot;张三&quot;, 18 , 100},
+		{&quot;李四&quot;, 28 , 80},
+		{&quot;王五&quot;, 38 , 60},
+	};
+</code></pre></div><h3 id="结构体指针"><a href="#结构体指针" class="header-anchor">#</a> 结构体指针</h3> <div class="language-c++ extra-class"><pre class="language-text"><code>int main() {
+	
+	Student s = { &quot;张三&quot; ,18 , 100 };
+
+	// 通过指针指向结构体变量
+
+	Student* p = &amp;s;
+
+	// 通过指针访问结构体变量中的数据
+
+	cout &lt;&lt; &quot;姓名： &quot; &lt;&lt; p-&gt;name &lt;&lt; &quot;年龄： &quot; &lt;&lt; p-&gt;age &lt;&lt; &quot;分数： &quot; &lt;&lt; p-&gt;score &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+}
+</code></pre></div><p><em>注意：通过结构体指针访问结构体中的属性，需要用”  -&gt; “</em></p> <h3 id="结构体嵌套结构体"><a href="#结构体嵌套结构体" class="header-anchor">#</a> 结构体嵌套结构体</h3> <p>结构过于复杂，就不跟着敲代码了/(ㄒoㄒ)/~~</p> <h3 id="结构体作函数参数"><a href="#结构体作函数参数" class="header-anchor">#</a> 结构体作函数参数</h3> <ul><li>值传递</li></ul> <div class="language-c++ extra-class"><pre class="language-text"><code>struct Student {
+
+	string name;
+
+	int age;
+
+	int score;
+};
+void print(struct Student s) {
+	cout  &lt;&lt; &quot; 姓名： &quot; &lt;&lt; s.name &lt;&lt; &quot; 年龄： &quot; &lt;&lt; s.age &lt;&lt; &quot; 分数： &quot; &lt;&lt; s.score &lt;&lt; endl;
+
+};
+
+int main() {
+	
+	Student s = { &quot;张三&quot; ,18 , 100 };
+
+	
+	Student* p = &amp;s;
+
+	print(s);
+
+	
+	system(&quot;pause&quot;);
+	return 0;
+}
+</code></pre></div><p><em>注意：值传递只能修改形参的值，而主函数中的实参并不会被修改</em></p> <ul><li>地址传递</li></ul> <div class="language-c++ extra-class"><pre class="language-text"><code>void print02(struct Student * p) {
+	cout &lt;&lt; &quot;姓名： &quot; &lt;&lt; p-&gt;name &lt;&lt; &quot;年龄： &quot; &lt;&lt; p-&gt;age &lt;&lt; &quot;分数： &quot; &lt;&lt; p-&gt;score &lt;&lt; endl;
+};
+
+int main() {
+	
+	Student s = { &quot;张三&quot; ,18 , 100 };
+
+	print02(&amp;s);
+
+	
+	system(&quot;pause&quot;);
+	return 0;
+}
+</code></pre></div><p><em>而地址传递则可以改变子函数和主函数中结构体里的数据</em></p> <h3 id="结构体中const的使用"><a href="#结构体中const的使用" class="header-anchor">#</a> 结构体中const的使用</h3> <ul><li><p>值传递中，将形参进行传递，会自动拷贝一份结构体，占用很大内存。 -- 而使用指针通过地址传递，则只会传递四个字节</p></li> <li><p>方法：在子函数的形参前加上const</p></li></ul></div></section> <footer class="footer">
+  © 2023
+  <i class="icon-user"></i>
+  Jin Shenwei
+  <br>
+  Powered by
+  <a href="https://vuepress.vuejs.org/" rel="noopener" target="_blank">VuePress</a>
+  | Theme
+  <a href="https://github.com/viko16/vuepress-theme-simple" rel="noopener" target="_blank">Simple</a></footer></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.6d6c85f9.js" defer></script><script src="/assets/js/3.e69e676f.js" defer></script><script src="/assets/js/7.1c84c6cc.js" defer></script>
+  </body>
+</html>

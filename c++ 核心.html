@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>学习[c++ 核心] | 我的博客</title>
+    <meta name="generator" content="VuePress 1.9.9">
+    
+    <meta name="description" content="Just playing around">
+    
+    <link rel="preload" href="/assets/css/1.styles.39ebe384.css" as="style"><link rel="preload" href="/assets/js/app.6d6c85f9.js" as="script"><link rel="preload" href="/assets/js/3.e69e676f.js" as="script"><link rel="preload" href="/assets/js/6.e2e4f725.js" as="script"><link rel="prefetch" href="/assets/js/10.99aab41b.js"><link rel="prefetch" href="/assets/js/11.8f9eebd9.js"><link rel="prefetch" href="/assets/js/2.bad08e00.js"><link rel="prefetch" href="/assets/js/4.7c0b9e53.js"><link rel="prefetch" href="/assets/js/5.e46d8643.js"><link rel="prefetch" href="/assets/js/7.1c84c6cc.js"><link rel="prefetch" href="/assets/js/8.591348ab.js"><link rel="prefetch" href="/assets/js/9.a5eede58.js">
+    <link rel="stylesheet" href="/assets/css/1.styles.39ebe384.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container vuepress-theme-simple"><header class="header"><a href="/" title="Just playing around" class="site-name router-link-active">
+      我的博客
+    </a> <div style="clear: both"></div> <div class="navbar"><a href="/images/User.jpg" target="_blank" rel="noopener noreferrer" class="navbar-item">MyPhoto</a></div></header> <section class="post-view"><div class="post-head"><h1 class="post-title">
+      学习[c++ 核心]
+    </h1> <time datetime="2023/4/24 13:00:07" title="2023/4/24 13:00:07" pubdate="pubdate" class="post-date">
+  1 minute ago
+</time></div> <div class="content__default"><h1 id="学习-c-核心"><a href="#学习-c-核心" class="header-anchor">#</a> 学习[c++ 核心]</h1> <h2 id="内存分区模型"><a href="#内存分区模型" class="header-anchor">#</a> 内存分区模型</h2> <p>c++程序在执行时，将内存方向划分为4个区域</p> <ul><li>代码区：存放函数体的二进制代码，由操作系统进行管理</li> <li>全局区：存放全局变量和静态变量，常量</li> <li>栈区：由编译器自动分配释放，存放函数的参数值，局部变量等</li> <li>堆区；由程序员分配和释放，若程序员不释放，程序结束时由操作系统回收</li></ul> <p><em><strong>内存四区的意义： 不同区域存放的数据，赋予不同的生命周期，给我们更方便的灵活编程</strong></em></p> <h3 id="程序执行前"><a href="#程序执行前" class="header-anchor">#</a> 程序执行前</h3> <p>在程序编译后，生成了exe可执行程序，未执行该程序前分为两个区域</p> <p><em><strong>代码区：</strong></em></p> <ul><li><em>存放CPU执行的机器指令</em></li> <li>代码区使共享的，共享的目的是对于频繁的被执行程序，只需要在内存中有一份代码即可</li> <li>代码区是只读的，使其只读的原因是为了防止程序意外地修改了他的指令</li></ul> <p><em><strong>全局区：</strong></em></p> <ul><li><em>全局变量和静态变量存放于此</em></li> <li>全局区还包含了常量区，字符串常量和其他常量也存放于此，</li> <li>该区域的数据在程序结束后由操作系统释放</li></ul> <h3 id="栈区"><a href="#栈区" class="header-anchor">#</a> 栈区</h3> <ul><li>形参 和 局部变量存放于此</li> <li><em>注意：不要返回栈区的地址，因为栈区的内存会在使用一次后被释放</em></li></ul> <h3 id="堆区"><a href="#堆区" class="header-anchor">#</a> 堆区</h3> <div class="language-c++ extra-class"><pre class="language-text"><code>int* func()
+{						// 利用new关键字，可以将数据开辟到堆区
+	int* p = new int(10); // 指针本质上是一个局部变量，放在栈上
+	return p;			 // 指针保存的数据放在堆区
+}
+
+int main() {
+
+	int* p = func();
+
+	cout &lt;&lt; *p &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+}
+</code></pre></div><h3 id="new关键字"><a href="#new关键字" class="header-anchor">#</a> new关键字</h3> <p>堆区开辟的地址，由程序员手动释放，释放利用操作符delete</p> <h2 id="引用"><a href="#引用" class="header-anchor">#</a> 引用</h2> <p>给变量起别名</p> <h3 id="语法"><a href="#语法" class="header-anchor">#</a> 语法</h3> <p>数据类型 &amp;别名 = 原名</p> <p><em>注意：引用必须初始化， 引用在初始化后就不可以发生改变</em></p> <h3 id="引用做函数参数"><a href="#引用做函数参数" class="header-anchor">#</a> 引用做函数参数</h3> <p>复习：参数传递有两种方式，</p> <ol><li>值传递</li> <li>地址传递</li></ol> <p>引用传递：</p> <div class="language-c++ extra-class"><pre class="language-text"><code>void mySwap03(int&amp; a, int&amp; b) {
+	int temp = a;
+	a = b;
+	b = temp;
+}
+
+
+int main() {
+
+	int a = 10;
+	int b = 20;
+
+
+	cout &lt;&lt; &quot;引用传递:&quot; &lt;&lt; endl;
+	mySwap03(a, b);
+	cout &lt;&lt; &quot;a = &quot; &lt;&lt; a &lt;&lt; endl;
+	cout &lt;&lt; &quot;b = &quot; &lt;&lt; b &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+}
+</code></pre></div><h3 id="引用做函数返回值"><a href="#引用做函数返回值" class="header-anchor">#</a> 引用做函数返回值</h3> <div class="language-c++ extra-class"><pre class="language-text"><code>int&amp; test01() {
+	static int a = 10; // 可以在变量前加上static关键字将数据存放到堆区
+	return a;
+}
+
+int main() {
+
+	int&amp; b = test01();
+	cout &lt;&lt; b &lt;&lt; endl;
+	cout &lt;&lt; b &lt;&lt; endl;
+
+	system(&quot;pause&quot;);
+	return 0;
+}
+</code></pre></div><p><em>注意：如果函数的返回值是引用，则这个函数调用可以作为左值</em></p> <h3 id="引用的本质"><a href="#引用的本质" class="header-anchor">#</a> 引用的本质</h3> <p>引用的本质在c++内部实现是一个指针常量</p> <h3 id="常量引用"><a href="#常量引用" class="header-anchor">#</a> 常量引用</h3> <p>用来修饰形参，防止误操作</p> <h2 id="函数提高"><a href="#函数提高" class="header-anchor">#</a> 函数提高</h2> <h3 id="函数的默认参数"><a href="#函数的默认参数" class="header-anchor">#</a> 函数的默认参数</h3> <p>数据类型 函数名（参数 = 默认值）{</p> <p>}</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+
+int func(int a  , int c ,int b = 10 ) {
+	return a + c + b;
+}
+
+
+
+int main() {
+
+	cout &lt;&lt; func(10,20) &lt;&lt; endl;
+
+
+	system(&quot;pause&quot;);
+	return 0;
+}
+</code></pre></div><p><em>注意：附加默认参数的参数要写在实际参数的后面</em></p> <p><em>注意：如果函数声明有默认参数，函数实现就不能有默认参数</em></p> <h3 id="函数占位参数"><a href="#函数占位参数" class="header-anchor">#</a> 函数占位参数</h3> <p>在参数中传入数据类型，当作一个占位参数</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+
+void fn(int a,string) {
+		
+	cout &lt;&lt; &quot;this is fn&quot; &lt;&lt; endl;
+}
+
+int main() {
+
+	fn(10, &quot;10&quot;);
+	
+	system(&quot;pause&quot;);
+	return 0;
+}
+</code></pre></div><h3 id="函数重载"><a href="#函数重载" class="header-anchor">#</a> 函数重载</h3> <p>作用：函数名可以相同，提高重复性</p> <p><em><strong>函数重载满足的条件：</strong></em></p> <ul><li>同一个作用域下</li> <li>函数名称相同</li> <li><em><strong>函数参数类型不同，或者个数不同 或者顺序不同</strong></em></li></ul> <p><em>注意：函数的返回值不可以作为函数重载的条件</em></p> <h3 id="函数重载碰到默认参数"><a href="#函数重载碰到默认参数" class="header-anchor">#</a> 函数重载碰到默认参数</h3> <div class="language-c++ extra-class"><pre class="language-text"><code>void func() {
+	cout &lt;&lt; &quot;func&quot; &lt;&lt; endl;
+}
+
+void func(int a) {
+	cout &lt;&lt; &quot;func (int a)&quot; &lt;&lt; endl;
+}
+
+int main() {
+
+	func(10);
+
+	system(&quot;pause&quot;);
+	return 0;
+}
+</code></pre></div><div class="language-c++ extra-class"><pre class="language-text"><code>void func(int &amp;a) {				//当传入的参数是一个常量时，参数不能										为引用参数
+	cout &lt;&lt; &quot;func&quot; &lt;&lt; endl;
+}
+
+void func(const int &amp;a) {	// 所以当传入常量时，函数重载的目标函									数将会是参数为常量引用的函数
+	cout &lt;&lt; &quot;func (int a)&quot; &lt;&lt; endl;
+}
+
+
+
+int main() {
+
+	func(10);
+
+	system(&quot;pause&quot;);
+	return 0;
+}
+</code></pre></div><p><em>注意：当函数重载碰到默认参数，会出现二义性</em></p> <h2 id="类和对象"><a href="#类和对象" class="header-anchor">#</a> 类和对象</h2> <h3 id="三大特性"><a href="#三大特性" class="header-anchor">#</a> 三大特性</h3> <ul><li>封装</li> <li>继承</li> <li>多态</li></ul> <h3 id="封装的意义"><a href="#封装的意义" class="header-anchor">#</a> 封装的意义</h3> <ol><li>public</li> <li>protected</li> <li>private</li></ol> <h3 id="struct-和-class-的区别"><a href="#struct-和-class-的区别" class="header-anchor">#</a> struct 和 class 的区别</h3> <p>struct的默认权限是公共， class默认权限是私有</p> <h3 id="类的分文件编写"><a href="#类的分文件编写" class="header-anchor">#</a> 类的分文件编写</h3> <p>首先创建 头文件 xxx.h</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#pragma once
+#include &lt;iostream&gt;
+using namespace std;
+
+class Point {
+public:
+	void setX(int x);
+	int getX();
+	void setY(int y);
+	int getY();
+private:
+	int m_X;
+	int m_Y;
+};// 在头文件中，只写入函数声明，不包含具体的函数实现
+</code></pre></div><p>再创建源文件 xxx.cpp</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&quot;point.h&quot; //首先引入刚刚编写的头文件
+
+void Point::setX(int x) {
+	m_X = x;
+}
+int Point::getX() {
+	return m_X;
+}
+void Point::setY(int y) {
+	m_Y = y;
+}
+int Point::getY() {
+	return m_Y;
+}// 放入有关函数的具体实现 ， 并在每个函数前加上此函数的作用域 Point::
+</code></pre></div><p>最后，在源文件中引入需要用到的类的头文件</p> <p><em>注意：如果要在一个类文件中使用另一个类文件，那么也需要在头文件中引入另一个类文件的头文件。</em></p> <h3 id="对象的初始化和清理"><a href="#对象的初始化和清理" class="header-anchor">#</a> 对象的初始化和清理</h3> <ul><li><p>构造函数</p> <ol><li>构造函数没有返回值，也不写void</li> <li>函数名称与类名相同</li> <li>构造函数可以有参数，可以发生重载</li> <li>程序在***调用***对象时会自动调用构造，无需手动调用，而且只会调用一次</li></ol></li> <li><p>析构函数</p> <ol><li>没有返回值，不屑void</li> <li>在名称前加上~</li> <li>不可以有参数，不可以发生重载</li> <li>程序在***销毁***对象时会自动调用构造，无需手动调用，而且只会调用一次</li></ol></li></ul> <div class="language-c++ extra-class"><pre class="language-text"><code>class Person {
+public:
+	Person(){
+		cout &lt;&lt; &quot;这是构造函数&quot; &lt;&lt; endl;
+	}
+
+	~Person() {
+		cout &lt;&lt; &quot;这是析构函数&quot; &lt;&lt; endl;
+	}
+
+};
+</code></pre></div><h3 id="构造函数的分类和调用"><a href="#构造函数的分类和调用" class="header-anchor">#</a> 构造函数的分类和调用</h3> <p>两种分类方式</p> <ul><li>按参数分为：有参构造 <code>Person(int a)</code> 和无参构造 <code>Person()</code></li> <li>按类型分为：普通构造和拷贝构造 <code>Person( const Person &amp;p )</code></li></ul> <p>三种调用方式</p> <ul><li>括号法</li></ul> <div class="language-c++ extra-class"><pre class="language-text"><code>void test01() {
+
+	//1.括号法调用
+
+	Person p1;  // 调用默认构造函数时，不要加括号,因为编译器会认为这是一个函数的声明
+
+	Person p2(10);
+
+	Person p3(p2);
+
+	cout &lt;&lt; &quot;p2的年龄为： &quot; &lt;&lt; p2.age &lt;&lt; endl;
+	cout &lt;&lt; &quot;p3的年龄为： &quot; &lt;&lt; p3.age &lt;&lt; endl;
+
+}
+</code></pre></div><ul><li>显示法</li></ul> <div class="language-c++ extra-class"><pre class="language-text"><code>Person p1;
+
+	Person p2 = Person(10); // Person(10) 为匿名对象 特点：当前行执行结束后，系统会立即回收掉匿名对象
+
+	Person p3 = Person(p2);//注意，不要用拷贝构造函数初始化匿名对象
+</code></pre></div><ul><li>隐式转换法</li></ul> <div class="language-c++ extra-class"><pre class="language-text"><code>	//3.隐式转换法调用
+	Person p4 = 10; //有参构造
+	Person p5 = p4;
+
+</code></pre></div><h3 id="拷贝构造函数的调用时机"><a href="#拷贝构造函数的调用时机" class="header-anchor">#</a> 拷贝构造函数的调用时机</h3> <ul><li><p>使用一个已创建完毕的对象来初始化一个新对象</p></li> <li><p>值传递的方式给娴熟参数传值</p></li> <li><p>以值方式返回局部对象</p></li></ul> <h3 id="构造函数的调用规则"><a href="#构造函数的调用规则" class="header-anchor">#</a> 构造函数的调用规则</h3> <p>只要写一个类，c++编译器 至少给一个类添加三个函数</p> <ol><li>默认构造函数</li> <li>默认析构函数</li> <li>默认拷贝函数</li></ol> <p>构造函数规则如下：</p> <ul><li>如果用户定义有参构造函数， c++不再提供默认无参构造函数 但是会提供默认拷贝函数</li> <li>如果用户定义拷贝构造函数， c++不会再提供其他构造函数</li></ul> <h3 id="浅拷贝与深拷贝"><a href="#浅拷贝与深拷贝" class="header-anchor">#</a> <em><strong>浅拷贝与深拷贝</strong></em></h3> <p>浅拷贝：简单的赋值拷贝操作</p> <p>深拷贝：在堆区重新申请空间，进行拷贝操作</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+#include&lt;string&gt;
+
+class Person {
+public:
+	int m_age;
+	int *m_Height;
+
+	Person() {
+		cout &lt;&lt; &quot;无参构造函数&quot; &lt;&lt; endl;
+	}
+
+	Person(int a , int height) {
+		cout &lt;&lt; &quot;有参构造函数&quot; &lt;&lt; endl;
+		m_age = a;
+		m_Height = new int(height); // 利用new把 height创建在堆区 ， 此时返回的是一个指针，指向m_Height存储的数据
+	}
+
+	//自己实现一个拷贝构造函数，解决浅拷贝带来的问题
+	Person(const Person&amp; p) {
+		cout &lt;&lt; &quot;Person拷贝构造函数的调用&quot; &lt;&lt; endl;
+		m_age = p.m_age;
+
+		m_Height = new int(*p.m_Height);
+	}
+
+	~Person() {
+		//析构代码，将堆区开辟的数据做释放操作
+		if (m_Height != NULL) {
+			delete m_Height;
+			m_Height = NULL;
+		}
+		cout &lt;&lt; &quot;析构函数&quot; &lt;&lt; endl;
+	}
+};
+ 
+void test01() {
+
+	Person p1(20 , 160);
+
+	cout &lt;&lt; &quot;p1的年龄为： &quot; &lt;&lt; p1.m_age &lt;&lt; &quot;身高为： &quot; &lt;&lt; *p1.m_Height &lt;&lt; endl;
+
+	Person p2(p1);
+
+	cout &lt;&lt; &quot;p2的年龄为： &quot; &lt;&lt; p2.m_age &lt;&lt; &quot;身高为： &quot; &lt;&lt; *p2.m_Height &lt;&lt; endl;
+
+}
+
+int main() {
+
+	test01();
+
+
+	system(&quot;pause&quot;);
+	return 0;
+}
+</code></pre></div><p><em><strong>总结：如果属性有在堆区开辟的，一定要自己提供拷贝构造函数，防止浅拷贝带来的问题</strong></em></p> <h3 id="初始化列表"><a href="#初始化列表" class="header-anchor">#</a> 初始化列表</h3> <div class="language-c++ extra-class"><pre class="language-text"><code>class Person {
+
+public:
+	int m_A;
+	int m_B;
+	int m_C;
+// 设置形参
+	Person(int a, int b ,int c) :m_A(a), m_B(b), m_C(c) {
+		cout &lt;&lt; &quot;初始化别表&quot; &lt;&lt; endl;
+	}
+
+};
+
+void test01() {
+
+	Person p1(30, 20, 10);//初始化列表的语法，传入参数
+	
+}
+</code></pre></div><h3 id="类对象作为类成员"><a href="#类对象作为类成员" class="header-anchor">#</a> 类对象作为类成员</h3> <p>当有其他类作为本类的成员时，先创建其他类，在创建本类。</p> <p>而在析构时，会执行本类的析构函数，在执行其他类。</p> <h3 id="静态成员"><a href="#静态成员" class="header-anchor">#</a> 静态成员</h3> <p>静态成员就是在成员变量和成员函数前加上关键字static，成为静态成员。</p> <ul><li><p>静态成员变量</p> <ul><li>所有对象共享同一份数据</li> <li>在编译阶段分配内存</li> <li>类内声明，类外初始化</li> <li>访问方式：通过对象，或通过类名来访问</li></ul> <div class="language-c++ extra-class"><pre class="language-text"><code>class Person {
+
+public:
+
+	static int m_A;
+
+};
+int Person::m_A = 100;
+
+void test01() {
+	Person p1;
+	cout &lt;&lt; p1.m_A &lt;&lt; endl; //通过属性来访问
+
+	cout &lt;&lt; Person::m_A &lt;&lt; endl;//通过类名来访问
+}
+</code></pre></div></li> <li><p>静态成员函数</p> <ul><li><em><strong>只能访问静态成员对象</strong></em></li> <li>所有对象都共享同一个函数</li> <li>访问方式：通过对象，通过类名</li></ul></li></ul> <h3 id="c-对象模型和this指针"><a href="#c-对象模型和this指针" class="header-anchor">#</a> c++对象模型和this指针</h3> <h4 id="成员变量和成员函数是分开存储的"><a href="#成员变量和成员函数是分开存储的" class="header-anchor">#</a> 成员变量和成员函数是分开存储的</h4> <p>只有非静态成员对象属于类的对象上</p> <h4 id="this-指针"><a href="#this-指针" class="header-anchor">#</a> this 指针</h4> <p>this 指针指向被调用的成员函数所属的对象</p> <ul><li>this指针是隐含每一个非静态成员函数内的一种指针</li> <li>this指针不需要定义直接使用即可</li></ul> <p>this指针的用途</p> <ul><li>当形参和成员变量同名时，可用this指针来区分</li> <li>在类的非静态成员函数中返回对象本身，可使用return *this</li></ul> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt;
+using namespace std;
+#include&lt;string&gt;
+
+class Person {
+
+public:
+
+	int age;
+
+	Person(int age) {
+		this-&gt;age = age; //this指针指向被调用成员函数所属的对象
+	}
+
+	Person&amp; addAge(Person&amp; p) {  
+        // 当返回值是解指针,返回本体时，要用引用的方式接收数据
+
+		this-&gt;age += p.age;
+
+		return *this;
+	}
+};
+
+void test02() {
+
+	Person p2(10);
+
+	Person p3(20);
+
+	p3.addAge(p2).addAge(p2);
+	cout &lt;&lt; &quot;p3的年龄为： &quot; &lt;&lt; p3.age &lt;&lt; endl;
+}
+
+int main() {
+
+	test02();
+
+	system(&quot;pause&quot;);
+	return 0;
+}
+</code></pre></div><h3 id="空指针访问成员函数"><a href="#空指针访问成员函数" class="header-anchor">#</a> 空指针访问成员函数</h3> <p>无法访问成员中的属性</p> <h3 id="运算符重载"><a href="#运算符重载" class="header-anchor">#</a> 运算符重载</h3> <p>只能利用全局函数重载左移运算符</p> <div class="language-c++ extra-class"><pre class="language-text"><code>class Person {
+	friend ostream&amp; operator&lt;&lt;(ostream&amp; cout, Person&amp; p);
+public:
+	Person(int a, int b) {
+		m_A = a;
+		m_B = b;
+	}
+
+private:
+
+	int m_A;
+	int m_B;
+
+};
+
+ostream &amp; operator&lt;&lt;(ostream &amp;cout,Person &amp; p) {
+	cout &lt;&lt; &quot;m_A = &quot; &lt;&lt; p.m_A &lt;&lt; &quot;m_B = &quot; &lt;&lt; p.m_B; 
+	return cout;
+}
+
+void test02() {
+	Person p(10, 20);
+	cout &lt;&lt; p &lt;&lt; endl;
+}
+</code></pre></div><h3 id="递增运算符重载"><a href="#递增运算符重载" class="header-anchor">#</a> 递增运算符重载</h3> <div class="language-c++ extra-class"><pre class="language-text"><code>class MyInteger{
+	friend ostream&amp; operator&lt;&lt;(ostream&amp; cout, MyInteger myint);
+public:
+	MyInteger() {
+		m_Num = 0;
+	}
+
+	//重载前置运算符
+	MyInteger&amp; operator++() {  //返回引用是为了可以修改实参
+		++m_Num;
+		return *this;
+	}
+
+	MyInteger operator++(int) {  //传入int占位参数，可以区分前置和后置递增
+	MyInteger temp = *this;
+		++m_Num;
+		return temp;
+	}
+</code></pre></div><h3 id="赋值运算符重载"><a href="#赋值运算符重载" class="header-anchor">#</a> 赋值运算符重载</h3> <p>为解决深浅拷贝问题，要手动写入深拷贝代码，并返回自身可以实现链式调用</p> <h3 id="关系运算符重载"><a href="#关系运算符重载" class="header-anchor">#</a> 关系运算符重载</h3> <h3 id="函数调用运算符重载"><a href="#函数调用运算符重载" class="header-anchor">#</a> 函数调用运算符重载</h3> <h2 id="继承"><a href="#继承" class="header-anchor">#</a> 继承</h2> <h3 id="构造和析构的顺序"><a href="#构造和析构的顺序" class="header-anchor">#</a> 构造和析构的顺序</h3> <p>遵循栈的数据规则，后进先出，构造函数的打印顺序与析构函数顺序相反。</p> <h3 id="同名成员的访问"><a href="#同名成员的访问" class="header-anchor">#</a> 同名成员的访问</h3> <p>当在子类中访问父类的同名成员属性，需要在属性名前加上作用域。</p> <div class="language-c++ extra-class"><pre class="language-text"><code>cout &lt;&lt; &quot;Son m_A = &quot; &lt;&lt; s.m_A &lt;&lt; endl;
+	cout &lt;&lt; &quot;Base m_A = &quot; &lt;&lt; s.Base::m_A &lt;&lt; endl;
+</code></pre></div><p>访问同名成员函数，同样也要加上作用域。</p> <h3 id="同名静态成员的处理方式"><a href="#同名静态成员的处理方式" class="header-anchor">#</a> 同名静态成员的处理方式</h3> <p>当通过对象访问数据时，在变量前加上作用于即可</p> <p>通过类名访问时，同样要加上作用域</p> <h3 id="多继承语法"><a href="#多继承语法" class="header-anchor">#</a> 多继承语法</h3> <p><code>class Son : public Base01, public Base02</code></p> <p>实际开发不建议使用；</p> <h3 id="菱形继承"><a href="#菱形继承" class="header-anchor">#</a> 菱形继承</h3> <p>![7164b682f789580286ae089cfef3b07](C:\Users\JINSHE~1\AppData\Local\Temp\WeChat Files\7164b682f789580286ae089cfef3b07.png)</p> <p>利用虚继承，解决菱形继承的重复继承问题</p> <p>加上virtual关键字， <code>virtual public Base{}</code></p> <p>底层原理：生成一个vbptr的指针，通过内存偏移量找到对应的数据。</p> <h2 id="多态"><a href="#多态" class="header-anchor">#</a> 多态</h2> <h3 id="多态分为两类"><a href="#多态分为两类" class="header-anchor">#</a> 多态分为两类：</h3> <ul><li>静态多态：函数重载，运算符重载</li> <li>动态多态：派生类和虚函数实现运行时多态</li></ul> <p>区别</p> <ul><li><p>静态多态的函数地址早绑定 - 编译阶段确定函数地址</p></li> <li><p>动态多态的函数地址晚绑定 - 运行阶段确定函数地址</p></li> <li><p>语法：</p></li></ul> <p>在父类的成员函数前加入 virtual 关键字 ， 实现函数地址的玩绑定</p> <p>在子类中重写虚函数</p> <ul><li>实现：</li></ul> <div class="language-c++ extra-class"><pre class="language-text"><code>class Animal {
+public:
+	virtual void speak() {
+		cout &lt;&lt; &quot;动物在说话&quot; &lt;&lt; endl;
+
+	}
+};
+
+class Cat : public Animal {
+
+public:
+	void speak() {
+		cout &lt;&lt; &quot;小猫在说话&quot; &lt;&lt; endl;
+	}
+
+};
+class Dog : public Animal {
+public:
+	void speak() {
+				cout &lt;&lt; &quot;小狗在说话&quot; &lt;&lt; endl;
+	}
+};
+
+void doSpeak(Animal&amp; animal) { // Animal &amp; animal = cat 父类的指针可以直接指向子类对象
+	animal.speak();
+}
+
+void test01() {
+	Cat cat;
+	doSpeak(cat);
+
+	Dog dog;
+	doSpeak(dog);
+
+}
+</code></pre></div><h3 id="多态的原理剖析"><a href="#多态的原理剖析" class="header-anchor">#</a> 多态的原理剖析</h3> <p>当在父类中定义virtual 虚函数是，在父类中添加了一个 vfptr 指针</p> <ul><li><div class="language-c++ extra-class"><pre class="language-text"><code>public:
+	virtual void speak() {
+		cout &lt;&lt; &quot;动物在说话&quot; &lt;&lt; endl;
+	}
+</code></pre></div></li> <li><p>当子类中重写了父类中的虚函数，子类中的虚函数表会替换掉父类中的虚函数表，所以当用父类的引用指向子类对象时，会从子类的虚函数表中找函数的入口地址，发生多态。</p></li> <li><p>作用：满足代码的开闭原则 ，对拓展开放，对修改关闭</p></li></ul> <p>以下是满足开闭原则的计算器案例：</p> <div class="language-c++ extra-class"><pre class="language-text"><code>class Calculator {
+public:
+	int m_Num1;
+	int m_Num2;
+
+	virtual int getResult() {
+		return 0;
+	}
+
+};
+
+// 加法计算器
+class AddCalculator : public Calculator {
+public:
+	virtual int getResult() {
+		return m_Num1 + m_Num2;
+	}
+
+};
+
+// 减法计算器
+class SubCalculator : public Calculator {
+public:
+	int getResult() {
+		return m_Num1 - m_Num2;
+	}
+
+};
+
+// 乘法计算器
+class MulCalculator : public Calculator {
+public:
+int getResult() {
+		return m_Num1 * m_Num2;
+	}
+};
+
+void test01() {
+	Calculator* cal = new AddCalculator;
+	cal-&gt;m_Num1 = 10;
+	cal-&gt;m_Num2 = 10;
+	cout &lt;&lt; &quot;10 + 10 = &quot; &lt;&lt; cal-&gt;getResult() &lt;&lt; endl;
+	delete cal;
+	cal = new SubCalculator;
+	cal-&gt;m_Num1 = 10;
+	cal-&gt;m_Num2 = 10;
+	cout &lt;&lt; &quot;10 - 10 = &quot; &lt;&lt; cal-&gt;getResult() &lt;&lt; endl;
+	delete cal;
+	cal = new MulCalculator;
+	cal-&gt;m_Num1 = 10;
+	cal-&gt;m_Num2 = 10;
+	cout &lt;&lt; &quot;10 * 10 = &quot; &lt;&lt; cal-&gt;getResult() &lt;&lt; endl;
+	delete cal;
+}
+</code></pre></div><h3 id="纯虚函数和多态类"><a href="#纯虚函数和多态类" class="header-anchor">#</a> 纯虚函数和多态类</h3> <p>在多态中，通常父类函数中的系函数的实现是毫无意义的，必须在子类中实现</p> <p>因此可以将虚函数改为纯虚函数</p> <h4 id="语法-2"><a href="#语法-2" class="header-anchor">#</a> 语法</h4> <p><code>virtual 返回值类型 函数名 （参数列表） = 0；</code></p> <p>当类中有了纯虚函数，这个类也称为抽象类</p> <div class="language-c++ extra-class"><pre class="language-text"><code>class Base {  // 抽象类
+public:
+	virtual void func() = 0; //创建抽象类
+};
+class Son : public Base {
+public:
+	void func() {
+		cout &lt;&lt; &quot;func函数调用&quot; &lt;&lt; endl;
+	}
+};
+void test01() {
+	Base * base = new Son;
+	base-&gt;func();
+}
+</code></pre></div><h4 id="制作茶叶案例"><a href="#制作茶叶案例" class="header-anchor">#</a> 制作茶叶案例</h4> <div class="language-c++ extra-class"><pre class="language-text"><code>class Base {
+public:
+	virtual void Boil() = 0;
+
+	virtual void Brew() = 0;
+
+	virtual void PutSomething() = 0;
+
+	void make() {
+		Boil();
+		Brew();
+		PutSomething();
+	}
+};
+
+class Coffe : public Base {
+public:
+	void Boil() {
+
+		cout &lt;&lt; &quot;煮农夫山泉&quot; &lt;&lt; endl;
+	}
+
+	void Brew() {
+		cout &lt;&lt; &quot;倒入杯中&quot; &lt;&lt; endl;
+	}
+
+	void PutSomething() {
+		cout &lt;&lt; &quot;加入糖和牛奶&quot; &lt;&lt; endl;
+	}
+};
+
+void doWork(Base* abs) {
+	abs-&gt;make();	
+}
+void test01() {
+	Coffe c;
+	doWork(&amp;c);
+}
+
+</code></pre></div><h4 id="制作电脑案例"><a href="#制作电脑案例" class="header-anchor">#</a> 制作电脑案例</h4> <div class="language-c++ extra-class"><pre class="language-text"><code>// 案例描述：把每个零件分装成抽象类，并提供不同的厂商生产的不同零件
+// 创建电脑类让电脑工作的函数，并且调用每个零件工作的接口
+
+class CPU {
+public:
+	virtual void calculate() = 0;
+};
+
+class VideoCard {
+public:
+	virtual void display() = 0;
+};
+
+class Memory { 
+public:
+	virtual void storage() = 0;
+};
+
+// 电脑的组装
+class Computer {
+public:
+	// 设置电脑类的构造函数 
+	Computer(CPU * cpu, VideoCard* vc, Memory* mem) {
+		m_cpu = cpu;
+		m_vc = vc;
+		m_mem = mem;
+	}
+
+	void doWork() {
+		m_cpu-&gt;calculate();
+		m_vc-&gt;display();
+		m_mem-&gt;storage(); 
+	}
+private:
+
+	CPU* m_cpu; 
+	VideoCard* m_vc;
+	Memory* m_mem;
+}; 
+
+
+// intel厂商
+
+class Intel : public CPU, public VideoCard, public Memory {
+
+	void calculate() {  //在子类中重写纯虚函数
+		cout &lt;&lt; &quot;Intel CPU&quot; &lt;&lt; endl;
+	}
+
+	void display(){
+		cout &lt;&lt; &quot;Intel VideoCard&quot; &lt;&lt; endl;
+	}
+	void storage() {
+		cout &lt;&lt; &quot;Intel Memory&quot; &lt;&lt; endl;
+	}
+
+};
+
+// Lenovo
+class Lenovo : public CPU, public VideoCard, public Memory {
+
+	void calculate() {
+		cout &lt;&lt; &quot;Lenovo CPU&quot; &lt;&lt; endl;
+	}
+
+	void display() {
+		cout &lt;&lt; &quot;Lenovo VideoCard&quot; &lt;&lt; endl;
+	}
+	void storage() {
+		cout &lt;&lt; &quot;Lenovo Memory&quot; &lt;&lt; endl;
+	}
+
+};
+
+void test01() {
+
+	CPU * intelCpu = new Intel; // 通过父类创建子类对象，使用多态
+	VideoCard * intelCard = new Intel;
+	Memory * intelMem = new Intel;
+	Computer* c1 = new Computer(intelCpu, intelCard, intelMem);
+	c1-&gt;doWork();
+	delete c1;
+
+}
+</code></pre></div><h2 id="文件操作"><a href="#文件操作" class="header-anchor">#</a> 文件操作</h2> <p>程序运行时产生的数据都属于临时数据，程序一旦结束都会被释放</p> <p>通过文件可以将数据<em>永久化</em></p> <p>需要包含头文件 <fstream></fstream></p> <p>文件分为两种类型</p> <ol><li>文本文件 - 文件以文本的ASCII码形式存储在计算机中</li> <li>二进制文件 - 文件以文本的二进制形式存储在计算机中，用户一般不能直接读懂他们</li></ol> <p>操作文件的三大类</p> <ul><li>ofstream  ： 写文件</li> <li>ifstream ： 读文件</li> <li>fstream ： 读写文件</li></ul> <h3 id="文本文件"><a href="#文本文件" class="header-anchor">#</a> 文本文件</h3> <ol><li>包含头文件 <code>#include&lt;fstream&gt;</code></li> <li>创建流对象 <code>fstream ofs</code> /  <code>ifstream ifs</code></li> <li>打开文件 <code>ofs.open(&quot;文件路径&quot;，打开方式)</code></li> <li>写数据 <code>ofs &lt;&lt; &quot;写入的数据&quot;</code></li> <li>关闭文件 <code>ofs.close();</code></li></ol> <p>![fb05a007d2367db23a9c16e0ca23ed6](C:\Users\JINSHE~1\AppData\Local\Temp\WeChat Files\fb05a007d2367db23a9c16e0ca23ed6.png)</p> <div class="language-c++ extra-class"><pre class="language-text"><code>#include&lt;iostream&gt; // 写文件
+using namespace std;
+#include&lt;fstream&gt;
+
+void test01(){
+
+	ofstream ofs;
+
+	ofs.open(&quot;test.txt&quot;, ios::out);
+
+	ofs &lt;&lt; &quot;姓名：张三&quot; &lt;&lt; endl;
+	ofs &lt;&lt; &quot;性别：男&quot; &lt;&lt; endl;
+	ofs &lt;&lt; &quot;年龄：18&quot; &lt;&lt; endl;
+
+	ofs.close();
+}
+</code></pre></div><div class="language-c++ extra-class"><pre class="language-text"><code>void test01() { // 读文件
+	ifstream ifs;
+
+	ifs.open(&quot;test.txt&quot;, ios::in);
+
+	if (!ifs.is_open()) {
+		cout &lt;&lt; &quot;文件打开失败&quot; &lt;&lt; endl;
+		return;
+	}
+
+	//读数据
+	char buf[1024] = { 0 };
+	while (ifs &gt;&gt; buf) {
+		cout &lt;&lt; buf &lt;&lt; endl;
+	}
+	ifs.close();
+</code></pre></div><h3 id="二进制文件"><a href="#二进制文件" class="header-anchor">#</a> 二进制文件</h3> <p>写文件</p> <ul><li>包含头文件 <code>#include &lt;ofstream&gt;</code></li> <li>创建输出流对象并打开文件 <code>ofs.write(&quot;文件名&quot; , ios::out | ios::binary )</code></li> <li>写文件 <code>ofs.write((const char *)&amp;p, sizeof(p));</code>  //这里的p指创建的对象</li> <li>关闭文件</li></ul> <p>读文件</p> <ul><li>实在是看不懂，等要用到再回来看看</li></ul></div></section> <footer class="footer">
+  © 2023
+  <i class="icon-user"></i>
+  Jin Shenwei
+  <br>
+  Powered by
+  <a href="https://vuepress.vuejs.org/" rel="noopener" target="_blank">VuePress</a>
+  | Theme
+  <a href="https://github.com/viko16/vuepress-theme-simple" rel="noopener" target="_blank">Simple</a></footer></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.6d6c85f9.js" defer></script><script src="/assets/js/3.e69e676f.js" defer></script><script src="/assets/js/6.e2e4f725.js" defer></script>
+  </body>
+</html>
